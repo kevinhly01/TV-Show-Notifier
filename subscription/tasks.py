@@ -3,6 +3,7 @@ from populate_data import populate
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
+from django.core.mail import EmailMultiAlternatives
 from subscription.models import Subscription
 from django.conf import settings
 from django.core.mail import send_mail
@@ -30,17 +31,13 @@ def tasks():
     for x in sub:
         subject = "Reminder that {} is On Today".format(x.show_name)
         from_email = settings.EMAIL_HOST_USER
-        to_email = [x.email]
-
-        # unlike name, date, time, show_sum isn't stored in database so need to go fetch it.
+        to = x.email
         episode_sum= Show(show_id= x.show_id).next_ep_summary
-        network = episode_sum= Show(show_id= x.show_id).network
+        network= Show(show_id= x.show_id).network
+        text_content = "Here is your reminder that {} airs Today, {} at {} on {}. Summary: {}".format(x.show_name, x.show_date, x.show_time, network, episode_sum)
+        html_content = '<p>Here is your reminder that {} airs Today, {} at {} on {}.</p> <p> Summary: {}</p>'.format(x.show_name, x.show_date, x.show_time, network, episode_sum)
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
-        contact_message = "Here is a reminder that {} airs Today, {} at {} on {}. {}".format(x.show_name, x.show_date, network, x episode_sum)
-        send_mail(subject, contact_message, from_email, to_email, fail_silently= False)
-
-        # update date table for next episode to none so duplicates aren't sent
-        x.show_date = None
-        x.save()
-
-	logger.info("Saved...")
+    logger.info("Saved...")
