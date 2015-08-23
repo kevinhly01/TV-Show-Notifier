@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{% block head_title %}TV Show Tracker{% endblock %}</title>
+
+    {% include 'head_css.html' %}
+
+    
+  </head>
+
+  <body>
+  
+    <div class="site-wrapper">
+<div class="background-image"></div>
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">TV Show Notifier</h3>
+              {% include 'navbar.html' %}
+            </div>
+          </div>
+
+          {% block Promo %}
+          {% endblock %}
+        {% block content %}
+        {% endblock %}
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>TV Show Notifier © 2015, by <a href="http://www.kevinhly.com">Kevin Ly</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    {% include 'javascript.html' %}
+  </body>
+</html>

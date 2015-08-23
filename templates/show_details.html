@@ -1,0 +1,19 @@
+ {% extends "base.html" %}
+ {% load crispy_forms_tags %}
+
+
+ {% block head_title %}Show_Details | {{block.super}}{% endblock %}
+
+ {% block Promo %}
+
+<div class="inner cover">
+			<h2 class="cover-heading">Congratulations! Your reminders have been set!</h2>
+			<h3 class="cover-heading">You will be notified on the day that the next episode airs.</h3>
+			<img class="img-circle"src="{{img_url}}" class="img-responsive" alt="tv show"  width="140" height="140">
+			{% if Show_Details %}
+            <h4 class="cover-heading">{{ Show_Name }} Season: {{ Show_Season }} Episode: {{ Show_Ep }} airs on {{ Air_Date }} {{ Air_Time }} ET on {{ Show_Network }}</h4>
+            <p>Summary: {{ Show_Summary }}</p>
+            {% endif %}
+
+          </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+ {% extends "base.html" %}
+ {% load crispy_forms_tags %}
+
+
+ {% block head_title %}Home | {{block.super}}{% endblock %}
+
+ {% block Promo %}
+
+<div class="inner cover">
+            <h1 class="cover-heading">Never Miss Another Episode</h1>
+            <p class="lead">Get a Email Reminder When The Next Episode of Your TV Show Airs!</p>
+          </div>
+
+   <div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6"> <form method='POST' action=''>{% csrf_token %}
+{{ form|crispy }}
+<input class= 'btn btn-primary' input type='submit' value='Submit'/>
+
+</form></div>
+  <div class="col-md-3"></div>
+</div>
+
+{% endblock %}
