@@ -3,7 +3,6 @@ from populate_data import populate
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
-from django.core.mail import EmailMultiAlternatives
 from subscription.models import Subscription
 from django.conf import settings
 from django.core.mail import send_mail
@@ -40,4 +39,7 @@ def tasks():
         msg.attach_alternative(html_content, "text/html")
         msg.send()
 
-    logger.info("Saved...")
+        x.show_date = None
+        x.save()
+
+	logger.info("Saved...")
